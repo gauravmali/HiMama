@@ -1,4 +1,4 @@
-# HiMama
+# ![alt text](app/assets/images/himama_logo.png)
 Create a test app which can be used by Teachers on HiMama's Platform to Clock-in or Clock-out.
 # 
 ### Run it locally
