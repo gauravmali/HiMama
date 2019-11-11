@@ -1,0 +1,110 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+
+      <div class="d-flex justify-content-center">
+        <%= image_tag('himama_logo.png', width: '260px') %>
+      </div>
+      <div class="card" style="width: 48rem;">
+        <i class="d-flex justify-content-end"><%= Date.today.strftime('%a, %d %b %Y')  %></i>
+        <h2 class="d-flex justify-content-center" style="font-family:courier;">Hello Teachers</h2>
+        <p class="d-flex justify-content-center" style="font-family:courier;"
+        > Kindly make sure to clock in or out accordingly :)</p>
+
+        <div class="card-body">
+          <div class="float-right">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#clockModal">
+              Clock in or Out
+            </button>
+          </div>
+          <br>
+          <br>
+          <table class="table table-sm">
+            <thead class="thead-light">
+            <tr>
+              <th></th>
+              <th>First name</th>
+              <th>Last name</th>
+              <th>Details</th>
+              <th>Created At</th>
+              <th>Edit / Delete</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <% @clocks.each do |clock| %>
+              <tr>
+                <% if clock.action == 'In' %>
+                  <td class="text-center"><i class="fa fa-sign-in" aria-hidden="true"></i></td>
+                <% else %>
+                  <td class="text-center"><i class="fa fa-sign-out" aria-hidden="true"></i></td>
+                <% end %>
+                <td><%= clock.first_name %></td>
+                <td><%= clock.last_name %></td>
+                <td>
+                  <% if clock.details.present?%>
+                    <%= clock.details %>
+                  <% else %>
+                    N/A
+                  <% end %>
+                </td>
+                <td><%= clock.created_at.strftime('%I:%M %P') %></td>
+                <td>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#clockModal2">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                  </button>
+
+                  <div class="modal fade" id="clockModal2" tabindex="-1" role="dialog" aria-labelledby="clockModalLabel2" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="clockModalLabel2">Edit</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <%= render 'form', clock: clock %>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  &nbsp;
+                  &nbsp;
+                  &nbsp;
+                  <%= link_to '', clock, method: :delete, data: { confirm: 'Are you sure?' }, class:"fa fa-trash" %>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+      <!-- Modal -->
+      <div class="modal fade" id="clockModal" tabindex="-1" role="dialog" aria-labelledby="clockModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="clockModalLabel">Clock In or Out</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <%= render 'form', clock: @new_clock %>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+    </div>
+  </div>
+</div>

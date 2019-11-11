@@ -1,0 +1,19 @@
+<%= form_with(model: clock, local: true) do |form| %>
+
+  <div class="field">
+    <%= form.text_field :first_name, placeholder: 'First Name' %>
+    &nbsp;
+    <%= form.text_field :last_name, placeholder: 'Last Name' %>
+    &nbsp;
+    <%= form.select :action, options_for_select([["Action", ""], "In", "Out"])%>
+  </div>
+
+  <div class="field">
+    <br>
+    <%= form.text_area :details, placeholder: 'Optional Details...' %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit :Submit %>
+  </div>
+<% end %>
